@@ -1,0 +1,77 @@
+# Copyright Jiaqi Liu
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+name: "Application Deployment on AWS through HashiCorp"
+description: "Registers application AMI and deploy an instance to EC2 through HashiCorp Packer & Terraform"
+branding:
+  icon: "box"
+  color: "blue"
+
+inputs:
+  hashicorp-dir:
+    description: "path to directory that contains the standard HashiCorp 'images'/'instances'/'scripts' folders; must NOT end with '/'"
+    required: true
+  aws-access-key-id:
+    description: "AWS Access Key ID"
+    required: true
+  aws-secret-access-key:
+    description: "AWS Secrete Access Key"
+    required: true
+  aws-region:
+    description: "The region in which the access key ID and Secret access key are valid"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ inputs.aws-access-key-id }}
+        aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
+        aws-region: ${{ inputs.aws-region }}
+
+    - name: Setup HashiCorp Packer
+      uses: hashicorp/setup-packer@main
+      with:
+        version: "latest"
+    - name: Initialize Packer configuration
+      shell: bash
+      run: packer init .
+      working-directory: ${{ inputs.hashicorp-dir }}/images
+    - name: Validate Packer template
+      shell: bash
+      run: packer validate -var "skip_create_ami=true" .
+      working-directory: ${{ inputs.hashicorp-dir }}/images
+    - name: Build and publish AMI image
+      shell: bash
+      run: packer build -var "skip_create_ami=false" .
+      working-directory: ${{ inputs.hashicorp-dir }}/images
+
+    - name: Setup HashiCorp Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: "latest"
+    - name: Initialize Terraform configuration
+      shell: bash
+      run: terraform init
+      working-directory: ${{ inputs.hashicorp-dir }}/instances
+    - name: Validate Terraform template
+      shell: bash
+      run: terraform validate
+      working-directory: ${{ inputs.hashicorp-dir }}/instances
+    - name: Create EC2 instance
+      shell: bash
+      run: terraform apply -auto-approve
+      working-directory: ${{ inputs.hashicorp-dir }}/instances
