@@ -1,16 +1,11 @@
 GitHub Actions for hashicorp-aws
 ================================
 
-<div align="center">
-    <img src="docs/static/img/logo.svg" width="20%" />
-
 [![GitHub Workflow Status][GitHub Workflow Status badge]][GitHub Workflow Status URL]
 [![GitHub Last Commit][GitHub Last Commit badge]][GitHub Last Commit URL]
 [![HashiCorp Packer Badge][HashiCorp Packer badge]][HashiCorp Packer URL]
 [![HashiCorp Terraform Badge][HashiCorp Terraform badge]][HashiCorp Terraform URL]
 [![Apache License][Apache License badge]][Apache License URL]
-
-</div>
 
 Immutable Infrastructure as Code via GitHub Action
 --------------------------------------------------
