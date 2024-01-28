@@ -15,8 +15,8 @@
 name: "HashiCorp AWS"
 description: "Registers AMI and deploys AWS EC2 instance of it as immutable infrastructure through HashiCorp"
 branding:
-  icon: "box"
-  color: "blue"
+  icon: "package"
+  color: "green"
 
 inputs:
   hashicorp-dir:
