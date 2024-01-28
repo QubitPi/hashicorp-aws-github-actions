@@ -2,7 +2,6 @@ GitHub Actions for hashicorp-aws
 ================================
 
 [![GitHub Workflow Status][GitHub Workflow Status badge]][GitHub Workflow Status URL]
-[![GitHub Last Commit][GitHub Last Commit badge]][GitHub Last Commit URL]
 [![HashiCorp Packer Badge][HashiCorp Packer badge]][HashiCorp Packer URL]
 [![HashiCorp Terraform Badge][HashiCorp Terraform badge]][HashiCorp Terraform URL]
 [![Apache License][Apache License badge]][Apache License URL]
@@ -10,7 +9,7 @@ GitHub Actions for hashicorp-aws
 Immutable Infrastructure as Code via GitHub Action
 --------------------------------------------------
 
-[Application Deployment on AWS through HashiCorp][hashicorp-aws-github-actions] is an opinionated CI/CD [GitHub Action] 
+[Application Deployment on AWS through HashiCorp][hashicorp-aws-github-actions] is an opinionated CI/CD [GitHub Action]
 that
 
 1. packages application into and registers [AMI image][AWS AMI] on AWS, then
@@ -100,8 +99,6 @@ The use and distribution terms for [hashicorp-aws-github-actions] are covered by
 
 [GitHub Action]: https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions
 [GitHub Action - How to set up]: https://docs.github.com/en/actions/security-guides/encrypted-secrets
-[GitHub Last Commit badge]: https://img.shields.io/github/last-commit/QubitPi/hashicorp-aws-github-actions/master?logo=github&style=for-the-badge
-[GitHub Last Commit URL]: https://github.com/QubitPi/hashicorp-aws-github-actions/commits/master/
 [GitHub Workflow Status badge]: https://img.shields.io/github/actions/workflow/status/QubitPi/hashicorp-aws-github-actions/ci-cd.yml?branch=master&logo=github&style=for-the-badge
 [GitHub Workflow Status URL]: https://github.com/QubitPi/hashicorp-aws-github-actions/actions/workflows/ci-cd.yml
 
