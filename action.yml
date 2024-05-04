@@ -19,8 +19,11 @@ branding:
   color: "green"
 
 inputs:
-  hashicorp-dir:
-    description: "path to directory that contains the standard HashiCorp 'images'/'instances'/'scripts' folders; must NOT end with '/'"
+  packer-dir:
+    description: "path to directory that contains the standard HashiCorp Packer config files"
+    required: true
+  terraform-dir:
+    description: "path to directory that contains the standard HashiCorp Terraform config files"
     required: true
   aws-access-key-id:
     description: "AWS Access Key ID"
@@ -49,15 +52,15 @@ runs:
     - name: Initialize Packer configuration
       shell: bash
       run: packer init .
-      working-directory: ${{ inputs.hashicorp-dir }}/images
+      working-directory: ${{ inputs.packer-dir }}
     - name: Validate Packer template
       shell: bash
-      run: packer validate -var "skip_create_ami=true" .
-      working-directory: ${{ inputs.hashicorp-dir }}/images
+      run: packer validate
+      working-directory: ${{ inputs.packer-dir }}
     - name: Build and publish AMI image
       shell: bash
-      run: packer build -var "skip_create_ami=false" .
-      working-directory: ${{ inputs.hashicorp-dir }}/images
+      run: packer build
+      working-directory: ${{ inputs.packer-dir }}
 
     - name: Setup HashiCorp Terraform
       uses: hashicorp/setup-terraform@v2
@@ -66,12 +69,12 @@ runs:
     - name: Initialize Terraform configuration
       shell: bash
       run: terraform init
-      working-directory: ${{ inputs.hashicorp-dir }}/instances
+      working-directory: ${{ inputs.terraform-dir }}
     - name: Validate Terraform template
       shell: bash
       run: terraform validate
-      working-directory: ${{ inputs.hashicorp-dir }}/instances
+      working-directory: ${{ inputs.terraform-dir }}
     - name: Create EC2 instance
       shell: bash
       run: terraform apply -auto-approve
-      working-directory: ${{ inputs.hashicorp-dir }}/instances
+      working-directory: ${{ inputs.terraform-dir }}
