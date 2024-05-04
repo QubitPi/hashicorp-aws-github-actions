@@ -55,11 +55,11 @@ runs:
       working-directory: ${{ inputs.packer-dir }}
     - name: Validate Packer template
       shell: bash
-      run: packer validate
+      run: packer validate .
       working-directory: ${{ inputs.packer-dir }}
     - name: Build and publish AMI image
       shell: bash
-      run: packer build
+      run: packer build .
       working-directory: ${{ inputs.packer-dir }}
 
     - name: Setup HashiCorp Terraform

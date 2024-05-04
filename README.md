@@ -67,7 +67,7 @@ jobs:
       ...
 
       - name: Publish my-app AMI image and deploy it to EC2 through HashiCorp
-        uses: QubitPi/hashicorp-aws@master
+        uses: QubitPi/hashicorp-aws-github-actions@master
         with:
           packer-dir: hashicorp/images
           terraform-dir: hashicorp/instances
