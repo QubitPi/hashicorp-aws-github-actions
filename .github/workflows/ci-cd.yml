@@ -21,5 +21,5 @@ name: CI/CD
       - master
 
 jobs:
-  code-styles:
-    uses: QubitPi/hashicorp-aws/.github/workflows/yml-and-md-style-checks.yml@master
+  yml-md-style-and-link-checks:
+    uses: QubitPi/hashicorp-aws/.github/workflows/yml-md-style-and-link-checks.yml@master

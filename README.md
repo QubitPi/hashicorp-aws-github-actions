@@ -24,7 +24,7 @@ How to Use HashiCrop AWS GitHub Actions
 ### Step 1 - Setting up HashiCrop Packer & Terraform Template Files
 
 HashiCorp AWS action follows [HashiCrop's best practice][HashiCorp Tutorial] by expecting a directory called
-**hashicorp** located at the root of the repository. It's structure looks like this:
+**hashicorp** located at the root of the repository. An example structure looks like this:
 
 ```bash
 .
@@ -69,10 +69,17 @@ jobs:
       - name: Publish my-app AMI image and deploy it to EC2 through HashiCorp
         uses: QubitPi/hashicorp-aws@master
         with:
+          packer-dir: hashicorp/images
+          terraform-dir: hashicorp/instances
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 ```
+
+> [!TIP]
+>
+> The values of `packer-dir` and `terraform-dir` is in accordance with the
+> [example directory structure above](#step-1---setting-up-hashicrop-packer--terraform-template-files)
 
 Note that the following [GitHub Action Secrets][GitHub Action - How to set up] needs to be setup
 
